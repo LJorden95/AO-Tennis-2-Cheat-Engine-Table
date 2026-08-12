@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="52">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"AO Tennis 2 - Carreira Editor"</Description>
+      <Options moHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : ao2.exe
+  Version:
+  Date   : 2026-08-10
+  Author : lucas
+  Description : AO Tennis 2 - Athlete Attributes
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,ao2.exe,44 88 44 01 03) // should be unique
+alloc(newmem,$1000,INJECT)
+alloc(PLAYER_STATS,8)
+
+label(code)
+label(capture)
+label(return)
+
+registersymbol(INJECT)
+registersymbol(PLAYER_STATS)
+
+newmem:
+
+capture:
+  cmp rax,02
+  jne code
+
+  mov [PLAYER_STATS],rcx
+  add qword ptr [PLAYER_STATS],05
+
+code:
+  mov [rcx+rax+03],r8b
+  add rsp,08
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 4
+return:
+
+[DISABLE]
+
+INJECT:
+  db 44 88 44 01 03 48 83 C4 08
+
+unregistersymbol(INJECT)
+unregistersymbol(PLAYER_STATS)
+
+dealloc(PLAYER_STATS)
+dealloc(newmem)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>53</ID>
+          <Description>"MASTER (Necessário Ativar)"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(INJECT_CAREER,ao2.exe,8B 81 0C 02 00 00 C3 CC)
+alloc(newmem,$1000,INJECT_CAREER)
+alloc(PLAYER_CAREER,8)
+
+label(return)
+
+newmem:
+  mov [PLAYER_CAREER],rcx
+  mov eax,[rcx+0000020C]
+  jmp return
+
+INJECT_CAREER:
+  jmp newmem
+  nop
+
+return:
+
+registersymbol(INJECT_CAREER)
+registersymbol(PLAYER_CAREER)
+
+[DISABLE]
+
+INJECT_CAREER:
+  db 8B 81 0C 02 00 00
+
+unregistersymbol(INJECT_CAREER)
+unregistersymbol(PLAYER_CAREER)
+
+dealloc(PLAYER_CAREER)
+dealloc(newmem)
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>7</ID>
+              <Description>"Meu Jogador"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>PLAYER_STATS</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>8</ID>
+                  <Description>"Nome"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>32</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>-28</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>9</ID>
+                  <Description>"Sobrenome"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>32</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>-45</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry NoCheckbox="1">
+              <ID>11</ID>
+              <Description>"-------------------------------------------------------------------------------------------------------------------------------------"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>55</ID>
+              <Description>"Orçamento"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>PLAYER_CAREER</Address>
+              <Offsets>
+                <Offset>+20c</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry NoCheckbox="1">
+              <ID>13</ID>
+              <Description>"-------------------------------------------------------------------------------------------------------------------------------------"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"Atributos"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>PLAYER_STATS</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1</ID>
+                  <Description>"Froça"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2</ID>
+                  <Description>"Reflexos"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>1</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3</ID>
+                  <Description>"Velocidade do Saque"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>4</ID>
+                  <Description>"Resistência"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>9</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>5</ID>
+                  <Description>"Velocidade"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>3</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry NoCheckbox="1">
+              <ID>19</ID>
+              <Description>"-------------------------------------------------------------------------------------------------------------------------------------"</Description>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>18</ID>
+              <Description>"Habilidades"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>PLAYER_STATS</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>20</ID>
+                  <Description>"Saque sem Efeito"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>1A</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>21</ID>
+                  <Description>"Saque com Topspin"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>21</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>22</ID>
+                  <Description>"Saque de Slice"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>1F</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>23</ID>
+                  <Description>"Forehand sem Efeito "</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>24</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>24</ID>
+                  <Description>"Forehand com Topspin"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>25</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>25</ID>
+                  <Description>"Slice de Forehand"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>19</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>26</ID>
+                  <Description>"Backhand sem Efeito"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>22</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>27</ID>
+                  <Description>"Backhand com Topspin"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>1B</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>28</ID>
+                  <Description>"Slice de Backhand"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>1C</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>29</ID>
+                  <Description>"Voleio"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>23</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>30</ID>
+                  <Description>"Voleio com Deixadinha"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>1E</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>31</ID>
+                  <Description>"Deixadinha"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>1D</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>32</ID>
+                  <Description>"LOB"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PLAYER_STATS</Address>
+                  <Offsets>
+                    <Offset>20</Offset>
+                  </Offsets>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Comments>Info about this table:
+</Comments>
+</CheatTable>
